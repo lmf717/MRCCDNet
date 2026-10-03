@@ -11,7 +11,7 @@ The proposed framework integrates modality-specific feature enhancement, multi-s
 ## Network Architecture
 
 The overall architecture of MRCCDNet is shown below.
-![MRCCDNet Architecture](MRCCDNet.png)
+<img width="6718" height="4200" alt="MRCCDNet" src="https://github.com/user-attachments/assets/d0a45d93-333a-48f7-9a27-eca3eda55805" />
 
 ## Datasets
 
