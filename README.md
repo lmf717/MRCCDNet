@@ -1,5 +1,3 @@
-<img width="6923" height="4398" alt="GF-HCD对比试验" src="https://github.com/user-attachments/assets/e7bc8ab8-d995-4d29-aef1-7ecefe8bad38" /># MRCCDNet
-
 **MRCCDNet: Optical-SAR Remote Sensing Image Change Detection via Cross-Modal Feature Interaction and Region-Consistency Guidance**
 
 ## Overview
