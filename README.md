@@ -18,11 +18,10 @@ For the **CAU-Flood dataset**, the original optical image contains four channels
 
 For the **Ombria dataset**, the original three-channel optical image is repeated four times to obtain 12 channels, and an additional constant channel with a value of 255 is appended to form the final **13-channel optical input**. Similarly, the original single-channel SAR image is duplicated to obtain a **2-channel SAR input**.
 
-Through the above channel adaptation, both CAU-Flood and Ombria are represented using a unified input configuration consisting of 13-channel optical imagery and 2-channel SAR imagery, which is consistent with the input dimensions of the two modality-specific branches of MRCCDNet.
+The **GF-HCD dataset** follows the same preprocessing strategy as Ombria. The original three-channel optical image is repeated four times to obtain 12 channels, after which an additional constant channel with a value of 255 is appended to form a **13-channel optical input**. The original single-channel SAR image is duplicated to obtain a **2-channel SAR input**.
 
-The ground-truth change maps are first converted to single-channel grayscale images and then binarized. Pixels with values greater than zero are assigned to the changed class, while pixels with a value of zero are assigned to the unchanged class. Therefore, the resulting labels contain two categories, where **0 denotes unchanged pixels and 1 denotes changed pixels**.
+Through the above channel adaptation, CAU-Flood, Ombria, and GF-HCD are represented using a unified input configuration consisting of **13-channel optical imagery and 2-channel SAR imagery**, which is consistent with the input dimensions of the two modality-specific branches of MRCCDNet.
 
-To preserve the spatial correspondence among the optical image, SAR image, and ground-truth label, the same preprocessing operation is applied synchronously to all three inputs. In the reported experiments, random horizontal flipping, vertical flipping, rotation, scale-based random cropping, image blurring, and random color transformation are disabled. The processed optical images, SAR images, and binary change maps are finally converted into tensors before being fed into the network.
 
 ## Network Architecture
 
