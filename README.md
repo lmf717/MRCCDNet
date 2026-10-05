@@ -6,6 +6,24 @@ MRCCDNet is a multimodal change detection network designed for heterogeneous opt
 
 The proposed framework integrates modality-specific feature enhancement, multi-scale cross-modal fusion, global cross-modal interaction based on state space models, and region-consistency-guided feature decoding.
 
+## Data Preprocessing
+
+All optical-SAR image pairs and their corresponding change labels are organized according to the training, validation, and test splits. For each sample, the optical image, SAR image, and ground-truth change map share the same filename to ensure accurate pixel-level correspondence between the two modalities.
+
+The channel adaptation is performed to match the input configuration of the DeCUR-pretrained dual-stream ResNet-50 backbone. Specifically, the optical and SAR branches of the pretrained backbone expect 13-channel and 2-channel inputs, respectively. Therefore, datasets with fewer original channels are adapted through channel replication and constant-channel padding to maintain compatibility with the pretrained network architecture. This operation changes only the input dimensionality and does not introduce additional spectral or scattering information.
+
+All input samples are processed at a spatial resolution of **256 × 256 pixels**. Since the original numbers of channels differ among datasets, modality-specific channel adaptation is performed before the images are fed into the dual-stream backbone.
+
+For the **CAU-Flood dataset**, the original optical image contains four channels. The four-channel optical image is repeated three times to obtain 12 channels, after which an additional constant channel with a value of 255 is appended, resulting in a **13-channel optical input**. The original single-channel SAR image is duplicated along the channel dimension to generate a **2-channel SAR input**.
+
+For the **Ombria dataset**, the original three-channel optical image is repeated four times to obtain 12 channels, and an additional constant channel with a value of 255 is appended to form the final **13-channel optical input**. Similarly, the original single-channel SAR image is duplicated to obtain a **2-channel SAR input**.
+
+Through the above channel adaptation, both CAU-Flood and Ombria are represented using a unified input configuration consisting of 13-channel optical imagery and 2-channel SAR imagery, which is consistent with the input dimensions of the two modality-specific branches of MRCCDNet.
+
+The ground-truth change maps are first converted to single-channel grayscale images and then binarized. Pixels with values greater than zero are assigned to the changed class, while pixels with a value of zero are assigned to the unchanged class. Therefore, the resulting labels contain two categories, where **0 denotes unchanged pixels and 1 denotes changed pixels**.
+
+To preserve the spatial correspondence among the optical image, SAR image, and ground-truth label, the same preprocessing operation is applied synchronously to all three inputs. In the reported experiments, random horizontal flipping, vertical flipping, rotation, scale-based random cropping, image blurring, and random color transformation are disabled. The processed optical images, SAR images, and binary change maps are finally converted into tensors before being fed into the network.
+
 ## Network Architecture
 
 The overall architecture of MRCCDNet is shown below.
